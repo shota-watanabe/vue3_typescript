@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
+// script内でインポートしたコンポーネントは、template内で使えるようになる
 import HelloWorld from './components/HelloWorld.vue'
 </script>
 
@@ -14,9 +15,14 @@ import HelloWorld from './components/HelloWorld.vue'
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" />
+  <label class="label">Vue Learning</label>
 </template>
 
 <style scoped>
+.label {
+  font-size: 12px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
