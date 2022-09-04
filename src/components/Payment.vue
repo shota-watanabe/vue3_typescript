@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch, toRefs } from 'vue'
+import { ref, reactive, computed, watch, toRefs, onMounted, onBeforeMount, onUpdated } from 'vue'
 // ref形式のstring変数
 // この値が変わったらテンプレートが再読み込みされ、反映される
 const itemName1 = ref<string>('Desk')
@@ -53,6 +53,19 @@ const priceLabel = computed(() => {
   }else{
     priceLabel.value = price.value + 'yen'
   }
+}) */
+
+/* onBeforeMount(() => {
+  console.log('before mount')
+})
+
+onMounted(() => {
+  console.log('mounted')
+})
+
+// template内の値が全く買わないときはupdatedが走らない
+onUpdated(() => {
+  console.log('updated')
 }) */
 </script>
 
