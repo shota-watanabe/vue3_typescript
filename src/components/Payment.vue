@@ -10,11 +10,17 @@ const url1 = 'https://www.amazon.co.jp/YEARCOLOR-%E3%82%B7%E3%83%B3%E3%83%97%E3%
 const buy = (itemName: string) => {
   alert('Are you dure to buy ' + itemName + '?')
 }
+
+const input = (event: any) => {
+  // 入力した値を表示させる
+  console.log('event.target.value:', event.target.value)
+}
 </script>
 
 <template>
   <div class="container">
     <h1>最近の支出</h1>
+    <input @input="input"/>
     <div class="payment">
       <label>{{ itemName1 }}</label>
       <label>{{ price1 }} yen</label>
