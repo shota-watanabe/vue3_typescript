@@ -20,28 +20,20 @@ const buy = (itemName: string) => {
   alert('Are you dure to buy ' + itemName + '?')
 }
 
-const input = (event: any) => {
-  // 入力した値を表示させる
-  // console.log('event.target.value:', event.target.value)
-  // vueがテンプレートを読み込むタイミングは、定義しているリアクティブな値が変わったときのみ
-  // refへの代入 refはオブジェクトで渡ってくる オブジェクトのプロパティには値を代入できる
-  item1.name = event.target.value
-}
-
-const inputPrice = (event: any) => {
-  // 入力した値を表示させる
-  // console.log('event.target.value:', event.target.value)
-  // vueがテンプレートを読み込むタイミングは、定義しているリアクティブな値が変わったときのみ
-  // refへの代入 refはオブジェクトで渡ってくる オブジェクトのプロパティには値を代入できる
-  item1.price = event.target.value
+const clear = () => {
+  item1.name = ''
+  item1.price = 0
 }
 </script>
 
 <template>
   <div class="container">
     <h1>最近の支出</h1>
-    <input @input="input"/>
-    <input @input="inputPrice"/>
+    <input v-model="item1.name"/>
+    <!-- <input @input="input" :value="item1.name"/> -->
+    <input v-model="item1.price"/>
+    <!-- <input @input="inputPrice" :value="item1.price"/> -->
+    <button @click="clear">Clear</button>
     <div class="payment">
       <label>{{ item1.name }}</label>
       <label>{{ item1.price }} yen</label>
