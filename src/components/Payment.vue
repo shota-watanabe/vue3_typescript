@@ -1,6 +1,15 @@
 <script setup lang="ts">
-const itemName1 = 'Desk'
+import { ref, reactive } from 'vue'
+// ref形式のstring変数
+// この値が変わったらテンプレートが再読み込みされ、反映される
+const itemName1 = ref<string>('Desk')
 const itemName2 = 'Bike'
+
+// オブジェクトそのものをリアクティブにしたいときは、reactiveを使う
+const item1 = reactive({
+  name: 'Desk',
+  price: 40000
+})
 
 const price1 = 40000
 const price2 = 20000
@@ -13,7 +22,18 @@ const buy = (itemName: string) => {
 
 const input = (event: any) => {
   // 入力した値を表示させる
-  console.log('event.target.value:', event.target.value)
+  // console.log('event.target.value:', event.target.value)
+  // vueがテンプレートを読み込むタイミングは、定義しているリアクティブな値が変わったときのみ
+  // refへの代入 refはオブジェクトで渡ってくる オブジェクトのプロパティには値を代入できる
+  item1.name = event.target.value
+}
+
+const inputPrice = (event: any) => {
+  // 入力した値を表示させる
+  // console.log('event.target.value:', event.target.value)
+  // vueがテンプレートを読み込むタイミングは、定義しているリアクティブな値が変わったときのみ
+  // refへの代入 refはオブジェクトで渡ってくる オブジェクトのプロパティには値を代入できる
+  item1.price = event.target.value
 }
 </script>
 
@@ -21,13 +41,14 @@ const input = (event: any) => {
   <div class="container">
     <h1>最近の支出</h1>
     <input @input="input"/>
+    <input @input="inputPrice"/>
     <div class="payment">
-      <label>{{ itemName1 }}</label>
-      <label>{{ price1 }} yen</label>
+      <label>{{ item1.name }}</label>
+      <label>{{ item1.price }} yen</label>
       <!-- v-bind:href -->
       <a :href=url1>bought at...</a>
       <!-- v-on:click -->
-      <button @click="buy(itemName1)">BUY</button>
+      <button @click="buy(item1.name)">BUY</button>
     </div>
     <div class="payment">
       <label>{{ itemName2 }}</label>
@@ -55,6 +76,10 @@ const input = (event: any) => {
   height: 80px;
   width: 400px;
   background-color: aliceblue;
+  margin-bottom: 8px;
+}
+
+input {
   margin-bottom: 8px;
 }
 
