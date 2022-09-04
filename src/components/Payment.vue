@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 // ref形式のstring変数
 // この値が変わったらテンプレートが再読み込みされ、反映される
 const itemName1 = ref<string>('Desk')
@@ -24,6 +24,20 @@ const clear = () => {
   item1.name = ''
   item1.price = 0
 }
+
+const budget = 50000
+
+// computedを使わなくてもできるが、computedを使うことで、vueの中でキャッシュをして最適化してくれるので、computedを推奨
+const priceLabel = computed(() => {
+ // return item1.price > budget ? 'too expensive' : item1.price + 'yen'
+   if(item1.price > budget * 2){
+    return 'too expensive'
+  }else if(item1.price > budget){
+    return 'expensive..'
+  }else{
+    return item1.price + 'yen'
+  }
+})
 </script>
 
 <template>
@@ -36,7 +50,7 @@ const clear = () => {
     <button @click="clear">Clear</button>
     <div class="payment">
       <label>{{ item1.name }}</label>
-      <label>{{ item1.price }} yen</label>
+      <label>{{ priceLabel }}</label>
       <!-- v-bind:href -->
       <a :href=url1>bought at...</a>
       <!-- v-on:click -->
