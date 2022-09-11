@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import TweetPostForm from './components/TweetPostForm.vue'
+import TweetList from './components/TweetList.vue'
 // ref リアクティブ（動的）な値にする
 const tweets = ref([
   { id: 0, description: 'Hello, world!' },
@@ -11,7 +13,6 @@ const postTweet = () => {
   const tweet = { id: Math.random(), description: inputtingDescription.value.toString() }
   tweets.value.push(tweet)
   inputtingDescription.value = ''
-  console.log('post...', tweets.value)
 }
 
 const deleteTweet = (id: number) => {
@@ -26,20 +27,13 @@ const deleteTweet = (id: number) => {
 <template>
   <div class="container">
     <h1>Tweeter</h1>
-    <div class="form-container">
-      <input v-model="inputtingDescription" />
-      <button class="save-button" @click="postTweet">post</button>
-    </div>
+    <TweetPostForm />
     <div class="tweet-container">
       <!-- 切り替えのコストが、v-ifは高く、v-showは低い
       基本的にはv-ifを使う -->
       <p v-if="tweets.length <= 0">No tweets have been added</p>
       <ul>
-        <!-- :keyにtweet.idを入れることでid順に並べてくれる -->
-        <li v-for="tweet in tweets" :key="tweet.id" class="tweet-list">
-          <span>{{ tweet.description }}</span>
-          <button @click="deleteTweet(tweet.id)" class="delete-button">delete</button>
-        </li>
+        <TweetList :tweets="tweets" />
       </ul>
     </div>
   </div>
@@ -61,47 +55,5 @@ const deleteTweet = (id: number) => {
   width: 400px;
   margin-bottom: 12px;
   border-radius: 4px;
-}
-
-.save-button {
-  color: #fff;
-  font-weight: bold;
-  background-color: #68c9c9;
-  border-color: 2px;
-  border: none;
-}
-
-.delete-button {
-  color: #fff;
-  font-weight: bold;
-  background-color: #c99a68;
-  border-color: 2px;
-  border: none;
-}
-
-.save-button:hover {
-  background-color: #37bdbd;
-}
-
-.delete-button:hover {
-  background-color: #ac783f;
-}
-
-input {
-  margin-bottom: 16px;
-}
-
-.tweet-list {
-  /* 箇条書きの部分をなくす */
-  list-style: none;
-  margin-bottom: 12px;
-  border-radius: 2px;
-  font-size: 12px;
-  display: flex;
-  /* 端に寄せる */
-  justify-content: space-between;
-  background-color: rgb(204, 219, 233);
-  padding: 8px 20px;
-  width: 300px;
 }
 </style>
