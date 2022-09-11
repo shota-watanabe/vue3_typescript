@@ -13,6 +13,14 @@ const postTweet = () => {
   inputtingDescription.value = ''
   console.log('post...', tweets.value)
 }
+
+const deleteTweet = (id: number) => {
+  // tは渡ってきたツイートのオブジェクト
+  // そのidが引数で渡ってきたidでないものを返す
+  // 削除ボタンを押したツイート以外のツイートすべてを返す関数
+  // 実質 deleteと同じようになる
+  tweets.value = tweets.value.filter(t => t.id !== id)
+}
 </script>
 
 <template>
@@ -27,6 +35,7 @@ const postTweet = () => {
         <!-- :keyにtweet.idを入れることでid順に並べてくれる -->
         <li v-for="tweet in tweets" :key="tweet.id" class="tweet-list">
           <span>{{ tweet.description }}</span>
+          <button @click="deleteTweet(tweet.id)" class="delete-button">delete</button>
         </li>
       </ul>
     </div>
@@ -51,18 +60,28 @@ const postTweet = () => {
   border-radius: 4px;
 }
 
-button {
+.save-button {
   color: #fff;
   font-weight: bold;
   background-color: #68c9c9;
   border-color: 2px;
   border: none;
-  width: 60px;
-  height: 22px;
 }
 
-button:hover {
+.delete-button {
+  color: #fff;
+  font-weight: bold;
+  background-color: #c99a68;
+  border-color: 2px;
+  border: none;
+}
+
+.save-button:hover {
   background-color: #37bdbd;
+}
+
+.delete-button:hover {
+  background-color: #ac783f;
 }
 
 input {
@@ -73,11 +92,11 @@ input {
   /* 箇条書きの部分をなくす */
   list-style: none;
   margin-bottom: 12px;
-  border-radius: 4px;
+  border-radius: 2px;
   font-size: 12px;
   display: flex;
   /* 端に寄せる */
-  justify-content: space;
+  justify-content: space-between;
   background-color: rgb(204, 219, 233);
   padding: 8px 20px;
   width: 300px;
