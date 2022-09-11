@@ -7,12 +7,11 @@ const tweets = ref([
   { id: 0, description: 'Hello, world!' },
   { id: 1, description: 'this is the second tweet' },
 ])
-const inputtingDescription = ref<String>('')
 
-const postTweet = () => {
-  const tweet = { id: Math.random(), description: inputtingDescription.value.toString() }
+const postTweet = (description: string) => {
+  // description: description を省略した形
+  const tweet = { id: Math.random(), description }
   tweets.value.push(tweet)
-  inputtingDescription.value = ''
 }
 
 const deleteTweet = (id: number) => {
@@ -27,13 +26,14 @@ const deleteTweet = (id: number) => {
 <template>
   <div class="container">
     <h1>Tweeter</h1>
-    <TweetPostForm />
+    <!-- @子で定義したイベント="親で定義したイベント" -->
+    <TweetPostForm @post-tweet="postTweet" />
     <div class="tweet-container">
       <!-- 切り替えのコストが、v-ifは高く、v-showは低い
       基本的にはv-ifを使う -->
       <p v-if="tweets.length <= 0">No tweets have been added</p>
       <ul>
-        <TweetList :tweets="tweets" />
+        <TweetList :tweets="tweets" @delete-tweet="deleteTweet" />
       </ul>
     </div>
   </div>

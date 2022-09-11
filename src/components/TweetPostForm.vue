@@ -2,7 +2,10 @@
 import { ref } from 'vue'
 const inputtingDescription = ref<string>('')
 
-const postTweet = () => {}
+const emit = defineEmits(['post-tweet'])
+const postTweet = () => {
+  emit('post-tweet', inputtingDescription.value)
+}
 </script>
 
 <template>

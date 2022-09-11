@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 type Tweet = {
   id: number
   description: string
@@ -8,12 +7,12 @@ type Props = {
   tweets: Tweet[]
 }
 
-const deleteTweet = (id: number) => {
-  console.log('delete')
-}
-
 // Propsで受け取る宣言
 defineProps<Props>()
+const emit = defineEmits(['delete-tweet'])
+const deleteTweet = (id: number) => {
+  emit('delete-tweet', id)
+}
 </script>
 
 <template>
