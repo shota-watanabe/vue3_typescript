@@ -19,7 +19,7 @@ const deleteTweet = (id: number) => {
   // そのidが引数で渡ってきたidでないものを返す
   // 削除ボタンを押したツイート以外のツイートすべてを返す関数
   // 実質 deleteと同じようになる
-  tweets.value = tweets.value.filter(t => t.id !== id)
+  tweets.value = tweets.value.filter((t) => t.id !== id)
 }
 </script>
 
