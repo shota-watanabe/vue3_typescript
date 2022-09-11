@@ -31,6 +31,9 @@ const deleteTweet = (id: number) => {
       <button class="save-button" @click="postTweet">post</button>
     </div>
     <div class="tweet-container">
+      <!-- 切り替えのコストが、v-ifは高く、v-showは低い
+      基本的にはv-ifを使う -->
+      <p v-if="tweets.length <= 0">No tweets have been added</p>
       <ul>
         <!-- :keyにtweet.idを入れることでid順に並べてくれる -->
         <li v-for="tweet in tweets" :key="tweet.id" class="tweet-list">
@@ -55,7 +58,7 @@ const deleteTweet = (id: number) => {
   align-items: center;
   background-color: aliceblue;
   padding: 24px 0;
-  width: 200%;
+  width: 400px;
   margin-bottom: 12px;
   border-radius: 4px;
 }
