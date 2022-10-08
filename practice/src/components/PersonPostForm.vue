@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 const inputtingName = ref<string>('')
 const inputtingAge = ref<number>(0)
 
@@ -9,6 +9,20 @@ const register = () => {
   const person = { id: Math.random(), name: inputtingName.value, age: inputtingAge.value }
   emit('register', person)
 }
+
+const nameLengthLimit = 15
+
+const isValidName = computed(() => {
+  if (inputtingName.value.length >= nameLengthLimit) {
+    return false
+  } else {
+    return true
+  }
+})
+
+const color = computed(() => {
+  return isValidName.value ? 'white' : 'rgb(244,194,190)'
+})
 </script>
 
 <template>
@@ -16,14 +30,15 @@ const register = () => {
     <div class="input-container">
       <div class="input-column">
         <span>name:</span>
-        <input class="input" v-model="inputtingName" />
+        <input class="input-name" v-model="inputtingName" />
       </div>
+      <span class="error-message" v-if="!isValidName">{{ nameLengthLimit }} characters or less, please</span>
       <div class="input-column">
         <span>age:</span>
         <input class="input" v-model="inputtingAge" type="number" />
       </div>
     </div>
-    <button class="register" @click="register">register</button>
+    <button :disabled="!isValidName" class="register-button" @click="register">register</button>
   </div>
 </template>
 
@@ -51,7 +66,7 @@ input {
   flex-direction: column;
   justify-content: space-between;
   height: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .input-column {
@@ -60,8 +75,17 @@ input {
   justify-content: space-between;
 }
 
+.input-name {
+  background-color: v-bind(color);
+}
+
 span {
   font-size: 20px;
   font-weight: bold;
+}
+
+.error-message {
+  font-size: 12px;
+  color: red;
 }
 </style>
