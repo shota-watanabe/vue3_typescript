@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { DirectiveBinding, ref, watch } from 'vue';
+import Rating from './Rating.vue';
 
 // ディレクトリ名はvから始める
 // v-focusというディレクトリを生成する
@@ -19,12 +20,14 @@ const userName = ref<string>('')
 const from = ref<string>('Japan')
 const interest = ref([])
 const radios = ref([])
+const ratings = ref<string>('')
 // watch(interest, () => { console.log('interest', interest.value) })
 
 const onSubmit = () => {
   console.log(`userName::${userName.value}`)
   console.log(`from is ${from.value}`)
   console.log(`radio is ${radios.value}`)
+  console.log(`ratings... ${ratings.value}`)
 }
 </script>
 
@@ -75,6 +78,9 @@ const onSubmit = () => {
         <input id="how-other" name="how" type="radio" v-model="radios"/>
         <label for="how-other">Other</label>
       </div>
+    </div>
+    <div>
+      <Rating v-model="ratings"/>
     </div>
     <div>
       <button @click.prevent="onSubmit">Save Data</button>
