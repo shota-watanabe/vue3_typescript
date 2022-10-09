@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { DirectiveBinding, ref } from 'vue';
+import { DirectiveBinding, ref, watch } from 'vue';
 
-const userName = ref<string>('')
 // ディレクトリ名はvから始める
 // v-focusというディレクトリを生成する
 const vFocus = {
@@ -16,9 +15,16 @@ const vFocus = {
  }
 }
 
+const userName = ref<string>('')
+const from = ref<string>('Japan')
+const interest = ref([])
+const radios = ref([])
+// watch(interest, () => { console.log('interest', interest.value) })
+
 const onSubmit = () => {
   console.log(`userName::${userName.value}`)
-  console.log('submit')
+  console.log(`from is ${from.value}`)
+  console.log(`radio is ${radios.value}`)
 }
 </script>
 
@@ -34,7 +40,7 @@ const onSubmit = () => {
     </div>
     <div class="form-control">
       <label for="from">Where Are you from?</label>
-      <select id="from" name="from">
+      <select id="from" name="from" v-model="from">
         <option value="japan">Japan</option>
         <option value="china">China</option>
         <option value="others">Others</option>
@@ -43,30 +49,30 @@ const onSubmit = () => {
     <div class="form-control">
       <h2>What are you interested in?</h2>
       <div>
-        <input id="interest-react" name="interest" type="checkbox" />
+        <input id="interest-react" name="interest" type="checkbox" value="react" v-model="interest"/>
         <label for="interest-react">React.js</label>
       </div>
       <div>
-        <input id="interest-vue" name="interest" type="checkbox" />
+        <input id="interest-vue" name="interest" type="checkbox" value="vue" v-model="interest"/>
         <label for="interest-vue">Vue.js</label>
       </div>
       <div>
-        <input id="interest-angular" name="interest" type="checkbox" />
+        <input id="interest-angular" name="interest" type="checkbox" value="angular" v-model="interest"/>
         <label for="interest-angular">Angular.js</label>
       </div>
     </div>
     <div class="form-control">
       <h2>How do you learn?</h2>
       <div>
-        <input id="how-video" name="how" type="radio" />
+        <input id="how-video" name="how" type="radio" v-model="radios"/>
         <label for="how-video">Video Courses</label>
       </div>
       <div>
-        <input id="how-books" name="how" type="radio" />
+        <input id="how-books" name="how" type="radio" v-model="radios"/>
         <label for="how-books">Books</label>
       </div>
       <div>
-        <input id="how-other" name="how" type="radio" />
+        <input id="how-other" name="how" type="radio" v-model="radios"/>
         <label for="how-other">Other</label>
       </div>
     </div>
