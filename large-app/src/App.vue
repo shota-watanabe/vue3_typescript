@@ -1,0 +1,22 @@
+<script setup lang="ts">
+import TodoList from './components/TodoList.vue';
+import { provide } from 'vue';
+import { todos } from './useTodo'
+
+// 'todos'で受け取る
+provide('todos', todos)
+</script>
+
+<template>
+  <TodoList />
+</template>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+</style>
