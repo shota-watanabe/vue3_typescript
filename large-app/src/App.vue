@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import TodoList from './components/TodoList.vue';
 import { provide } from 'vue';
-import { todos } from './useTodo'
+import { todos, todoKey } from './useTodo'
 
 // 'todos'で受け取る
-provide('todos', todos)
+// provide('todos', todos)
+// todoKeyを使って、todosをprovide
+provide(todoKey, todos)
 </script>
 
 <template>
